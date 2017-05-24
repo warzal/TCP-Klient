@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Sockets;
 
 namespace TCP_Klient
 {
@@ -29,6 +30,23 @@ namespace TCP_Klient
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Połącz
+            string host = Adres.Text;
+            int port = System.Convert.ToInt32(my_port.Value);
+
+            try
+            {
+                TcpClient klient = new TcpClient(host, port);
+                info_o_polaczeniu.Items.Add("Nawiazanio połączenie z " + host + " na koncie:" + port);
+                klient.Close();
+            }
+            catch (Exception ex)
+            {
+                info_o_polaczeniu.Items.Add("Bład: " + "Nie udało sie nawiązać połaczenia!");
+                MessageBox.Show(ex.ToString(), "Błąd");
+                
+            }
+
 
         }
 
